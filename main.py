@@ -1,5 +1,6 @@
 #setting up all libraries for NN training and ML
 #resources used https://medium.com/@waleedmousa975/building-a-speech-to-text-with-ai-correction-system-a-step-by-step-tutorial-using-deepspeech-in-a788d6d3129
+
 import os
 import librosa
 import numpy as np
@@ -13,8 +14,9 @@ from tensorflow.image import resize
 from tensorflow.keras.models import load_model
 
 # Define your folder structure
-data_dir = "/workspaces/Arabic-Alphabet-SpeechRecognition/Training/Chapter 1"
-classes = ['Chapter 1 Part 1', 'Chapter 1 Part 2', 'Chapter 1 Part 3','Chapter 1 Part 4','Chapter 1 Part 5','Chapter 1 Part 6','Chapter 1 Part 7','Chapter 1 Part 8','Chapter 1 Part 9','Chapter 1 Part 10']
+data_dir = "/workspaces/Arabic-Alphabet-SpeechRecognition/ASR_Dataset/Speaker 1"
+classes = ["Alif","Ba","Ta","Tha","Jeem","Ha","Kha","Dal","Thal","Ra","Zay","Seen","Sheen","Sad","Dad","TA","Za","Ain","Ghain","Fa","Qaf","Kaf","Lam","Meem","Noon","HA","Waw","Ya"]
+
 
 # Load and preprocess audio data
 def load_and_preprocess_data(data_dir, classes, target_shape=(128, 128)):
@@ -69,7 +71,7 @@ else:
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Train the model
-    model.fit(X_train, y_train, epochs=200, batch_size=32, validation_data=(X_test, y_test))
+    model.fit(X_train, y_train, epochs=100, batch_size=32, validation_data=(X_test, y_test))
 
 test_accuracy=model.evaluate(X_test,y_test,verbose=0)
 print(test_accuracy[1])
@@ -83,7 +85,8 @@ model = load_model('audio_classification_model.h5')
 target_shape = (128, 128)
 
 # Define your class labels
-classes = ['Chapter 1 Part 1', 'Chapter 1 Part 2', 'Chapter 1 Part 3','Chapter 1 Part 4','Chapter 1 Part 5','Chapter 1 Part 6','Chapter 1 Part 7','Chapter 1 Part 8','Chapter 1 Part 9','Chapter 1 Part 10']
+classes = ["Alif","Ba","Ta","Tha","Jeem","Ha","Kha","Dal","Thal","Ra","Zay","Seen","Sheen","Sad","Dad","TA","Za","Ain","Ghain","Fa","Qaf","Kaf","Lam","Meem","Noon","HA","Waw","Ya"]
+
 
 # Function to preprocess and classify an audio file
 def test_audio(file_path, model):
@@ -105,7 +108,7 @@ def test_audio(file_path, model):
     return class_probabilities, predicted_class_index
 
 # Test an audio file
-test_audio_file = '01_01_أ.wav'
+test_audio_file = '/workspaces/Arabic-Alphabet-SpeechRecognition/ASR_Dataset/Speaker 2/1-أ/02_01_أ.wav'
 class_probabilities, predicted_class_index = test_audio(test_audio_file, model)
 
 # Display results for all classes
